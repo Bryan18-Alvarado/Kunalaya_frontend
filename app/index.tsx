@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useEffect, useRef } from "react";
 import { Animated, Easing, Pressable, StyleSheet, Text } from "react-native";
 
@@ -10,6 +10,7 @@ export default function Index() {
   const textOpacity = useRef(new Animated.Value(0)).current;
   const buttonOpacity = useRef(new Animated.Value(0)).current;
   const buttonTranslate = useRef(new Animated.Value(20)).current;
+  const router = useRouter();
 
   useEffect(() => {
     Animated.sequence([
@@ -96,7 +97,7 @@ export default function Index() {
               pressed && styles.buttonPressed,
             ]}
             android_ripple={{ color: "rgba(255,255,255,0.12)" }}
-            onPress={() => console.log("Ir a siguiente pantalla")}
+            onPress={() => router.push("/Login")}
           >
             <LinearGradient
               colors={["#ff9800", "#ff6d00"]}
@@ -133,34 +134,34 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 8 },
   },
   welcome: {
-    color: "#ff9800",
     fontSize: 24,
-    fontWeight: "700",
+    fontWeight: "600",
     textAlign: "center",
-    letterSpacing: 1.2,
-    textShadowColor: "#fff1e0",
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 8,
+    letterSpacing: 1.1,
+    color: "#ff9800",
     marginBottom: 2,
+    textShadowColor: "#fff3e0",
+    textShadowOffset: { width: 0, height: 1 },
+    textShadowRadius: 2,
   },
   appName: {
-    fontSize: 35,
-    fontWeight: "900",
-    color: "#ff6d00",
+    fontSize: 34,
+    fontWeight: "800",
     textAlign: "center",
-    marginBottom: 10,
-    letterSpacing: 2,
-    textShadowColor: "#fff",
-    textShadowOffset: { width: 0, height: 4 },
-    textShadowRadius: 16,
+    marginBottom: 12,
+    letterSpacing: 1.5,
+    color: "#ff6d00",
+    textShadowColor: "#fff3e0",
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 4,
   },
   subtitle: {
     color: "#bfa87a",
-    fontSize: 16,
+    fontSize: 15,
     textAlign: "center",
     marginBottom: 38,
     fontWeight: "400",
-    letterSpacing: 0.7,
+    letterSpacing: 0.5,
   },
   button: {
     borderRadius: 18,
