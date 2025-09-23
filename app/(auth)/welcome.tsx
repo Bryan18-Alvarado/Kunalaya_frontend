@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React from 'react';
-import WelcomeScreen from '../components/WelcomeScreen';
+import WelcomeScreen from '../../components/WelcomeScreen';
 
 export default function Welcome() {
   const router = useRouter();

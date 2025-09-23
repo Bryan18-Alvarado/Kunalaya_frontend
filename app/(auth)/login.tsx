@@ -1,6 +1,5 @@
 import { useRouter } from 'expo-router';
-import React from 'react';
-import LoginScreen from '../components/LoginScreen';
+import LoginScreen from '../../components/LoginScreen';
 
 export default function Login() {
   const router = useRouter();
@@ -8,7 +7,7 @@ export default function Login() {
     <LoginScreen
       onRegister={() => router.push('/register')}
       onForgotPassword={() => {}}
-      onLogin={() => router.push('/community-stories')}
+      onLogin={() => router.push('/home')}
     />
   );
 }

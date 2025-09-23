@@ -162,28 +162,6 @@ export default function CommunityStoriesScreen() {
           <Text style={styles.loadMoreText}>Cargar más relatos</Text>
         </TouchableOpacity>
       </ScrollView>
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="home" size={22} color="#219ebc" />
-          <Text style={styles.navTextActive}>Inicio</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="book-open-variant" size={22} color="#bdbdbd" />
-          <Text style={styles.navText}>Relatos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="map-marker" size={22} color="#bdbdbd" />
-          <Text style={styles.navText}>Mapa</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="calendar" size={22} color="#bdbdbd" />
-          <Text style={styles.navText}>Eventos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navItem}>
-          <MaterialCommunityIcons name="library" size={22} color="#bdbdbd" />
-          <Text style={styles.navText}>Biblioteca</Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 }
