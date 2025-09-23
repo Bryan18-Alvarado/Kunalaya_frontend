@@ -1,6 +1,33 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Modal } from 'react-native';
+
+const API_URL = "http://192.168.1.13:8000/relatos/api/v1/relatos/";
+
+type Story = {
+  id: number | string;
+  category?: { name?: string; slug?: string };
+  title?: string;
+  content?: string;
+  description?: string;
+  author?: { username?: string } | string;
+  localization?: { name?: string };
+  location?: string;
+  publication_date?: string;
+  time?: string;
+  tags?: string[];
+  likes?: number;
+  comments?: number;
+  views?: number;
+  rating?: number | null;
+};
+
+type Comment = {
+  id: number | string;
+  user?: { username?: string };
+  content?: string;
+  created_at?: string;
+};
 
 const categories = [
   { label: 'Todos', count: 1247 },
@@ -12,64 +39,102 @@ const categories = [
   { label: 'Festivales', count: 76 },
 ];
 
-const stories = [
-  {
-    id: '1',
-    category: 'Leyendas',
-    title: 'La Leyenda del Cadejo en León',
-    description: 'Una historia ancestral que mi abuela me contaba sobre el perro mágico que protege a los viajeros nocturnos...',
-    author: 'María González',
-    location: 'León, Nicaragua',
-    time: 'hace 2 horas',
-    tags: ['#leyenda', '#león', '#cadejo', '+1'],
-    likes: 24,
-    comments: 8,
-    views: 156,
-  },
-  {
-    id: '2',
-    category: 'Recetas',
-    title: 'Receta Tradicional: Nacatamal de mi Abuela',
-    description: 'La receta secreta que ha pasado por cinco generaciones en mi familia, con todos los trucos y secretos...',
-    author: 'Carlos Mendoza',
-    location: 'Masaya, Nicaragua',
-    time: 'hace 5 horas',
-    tags: ['#nacatamal', '#receta', '#masaya', '+1'],
-    likes: 31,
-    comments: 12,
-    views: 203,
-  },
-  {
-    id: '3',
-    category: 'Festivales',
-    title: 'Festividad de Santo Domingo en Managua',
-    description: 'Testimonio audiovisual de las celebraciones patronales más importantes de la capital...',
-    author: 'Ana Rodríguez',
-    location: 'Managua, Nicaragua',
-    time: 'hace 1 día',
-    tags: ['#santo domingo', '#managua', '#festividad', '+1'],
-    likes: 18,
-    comments: 6,
-    views: 98,
-  },
-  {
-    id: '4',
-    category: 'Música',
-    title: 'Canción de Cuna Nicaragüense',
-    description: 'Grabación de una canción de cuna tradicional que mi bisabuela cantaba, preservando la melodía original...',
-    author: 'Roberto Flores',
-    location: 'Granada, Nicaragua',
-    time: 'hace 2 días',
-    tags: ['#canción de cuna', '#granada', '#música tradicional', '+1'],
-    likes: 15,
-    comments: 4,
-    views: 67,
-  },
-];
-
 export default function CommunityStoriesScreen() {
+  // Estado para rating temporal
+  const [sendingRating, setSendingRating] = useState(false);
+  const handleSendRating = (score: number, story: Story) => {
+    if (!story) return;
+    setSendingRating(true);
+    fetch('http://192.168.1.13:8000/api/v1/ratings/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        post_id: story.id,
+        user: userId,
+        category: story.category?.id || 1,
+        score: score,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        setSendingRating(false);
+        // Opcional: recargar la historia para actualizar el promedio
+        handleOpenComments(story);
+      })
+      .catch(() => setSendingRating(false));
+  };
+  const [stories, setStories] = useState<Story[]>([]);
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Todos');
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
+  // Comments logic (in English)
+  const [storyComments, setStoryComments] = useState<Comment[]>([]);
+  const [loadingComments, setLoadingComments] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedStory, setSelectedStory] = useState<Story | null>(null);
+  const [newComment, setNewComment] = useState('');
+  const [sendingComment, setSendingComment] = useState(false);
+
+  const handleOpenComments = (story: Story) => {
+    setSelectedStory(story);
+    setModalVisible(true);
+    setLoadingComments(true);
+    fetch(`http://192.168.1.13:8000/api/v1/comentarios/?post_id=${story.id}`)
+      .then(res => res.json())
+      .then(data => {
+        setStoryComments(data);
+        setLoadingComments(false);
+        // Actualiza el número de comentarios en la story seleccionada
+        story.comments = data.length;
+        setStories(prevStories =>
+          prevStories.map(s => s.id === story.id ? { ...s, comments: data.length } : s)
+        );
+      })
+      .catch(() => setLoadingComments(false));
+  };
+
+  const handleSendComment = () => {
+    if (!selectedStory) return;
+    setSendingComment(true);
+    fetch('http://192.168.1.13:8000/api/v1/comentarios/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        post_id: selectedStory.id,
+        user: 1, // Replace with authenticated user id if available
+        content: newComment,
+      }),
+    })
+      .then(res => res.json())
+      .then(data => {
+        setNewComment('');
+        setSendingComment(false);
+        handleOpenComments(selectedStory);
+      })
+      .catch(() => setSendingComment(false));
+  };
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(data => {
+        setStories(data);
+      })
+      .catch(error => setFetchError(error.message));
+  }, []);
+
+  useEffect(() => {
+    fetch(API_URL)
+      .then(response => {
+        if (!response.ok || !response.headers.get('content-type')?.includes('application/json')) {
+          throw new Error('Response is not JSON or server error');
+        }
+        return response.json();
+      })
+      .then(data => setStories(data))
+      .catch(error => setFetchError(error.message));
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -124,44 +189,130 @@ export default function CommunityStoriesScreen() {
             </TouchableOpacity>
           ))}
         </View>
-        {stories.filter(s => selectedCategory === 'Todos' || s.category === selectedCategory).map((story) => (
-          <View key={story.id} style={styles.storyCard}>
-            <View style={styles.storyCardHeader}>
-              <Text style={styles.storyCategory}>{story.category}</Text>
-              <MaterialCommunityIcons name="file-document-outline" size={18} color="#bdbdbd" />
-            </View>
-            <Text style={styles.storyTitle}>{story.title}</Text>
-            <Text style={styles.storyDescription}>{story.description}</Text>
-            <View style={styles.storyAuthorRow}>
-              <MaterialCommunityIcons name="account-circle" size={22} color="#bdbdbd" style={{ marginRight: 4 }} />
-              <View>
-                <Text style={styles.storyAuthor}>{story.author}</Text>
-                <Text style={styles.storyLocation}>{story.location}</Text>
+        {fetchError && (
+          <Text style={{ color: 'red', marginBottom: 10 }}>{fetchError}</Text>
+        )}
+        {stories.length === 0 ? (
+          <Text>No hay relatos disponibles.</Text>
+        ) : (
+          stories
+            .filter(s => selectedCategory === 'Todos' || (typeof s.category === 'object' ? s.category.name : s.category) === selectedCategory)
+            .map((story) => (
+              <View key={story.id} style={styles.storyCard}>
+                <View style={styles.storyCardHeader}>
+                  <Text style={styles.storyCategory}>
+                    {typeof story.category === 'object' ? story.category.name : story.category || ''}
+                  </Text>
+                  <MaterialCommunityIcons name="file-document-outline" size={18} color="#bdbdbd" />
+                </View>
+                <Text style={styles.storyTitle}>{story.title || story.content || story.description}</Text>
+                <Text style={styles.storyDescription}>{story.content || story.description}</Text>
+                <View style={styles.storyAuthorRow}>
+                  <MaterialCommunityIcons name="account-circle" size={22} color="#bdbdbd" style={{ marginRight: 4 }} />
+                  <View>
+                    <Text style={styles.storyAuthor}>{typeof story.author === 'object' ? story.author.username : story.author || 'Unknown author'}</Text>
+                    <Text style={styles.storyLocation}>{story.localization?.name || story.location || ''}</Text>
+                  </View>
+                  <View style={{ flex: 1 }} />
+                  <Text style={styles.storyTime}>{story.publication_date || story.time || ''}</Text>
+                </View>
+                {story.tags && (
+                  <View style={styles.storyTagsRow}>
+                    {story.tags.map((tag, idx) => (
+                      <Text key={idx} style={styles.storyTag}>{tag}</Text>
+                    ))}
+                  </View>
+                )}
+                <View style={styles.storyStatsRow}>
+                  {/* Rating: estrellas y promedio */}
+                  <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 8 }}>
+                    {[1,2,3,4,5].map(star => (
+                      <TouchableOpacity key={star} onPress={() => handleSendRating(star, story)} disabled={sendingRating}>
+                        <MaterialCommunityIcons
+                          name="star"
+                          size={20}
+                          color={star <= Math.round(story.rating || 0) ? "#fb8500" : "#ccc"}
+                        />
+                      </TouchableOpacity>
+                    ))}
+                    <Text style={{ marginLeft: 6, fontWeight: 'bold', color: '#22223b', fontSize: 13 }}>
+                      {story.rating ? story.rating.toFixed(1) : ''}
+                    </Text>
+                  </View>
+                  <TouchableOpacity
+                    style={{ flexDirection: 'row', alignItems: 'center' }}
+                    onPress={() => handleOpenComments(story)}
+                  >
+                    <MaterialCommunityIcons name="comment-outline" size={18} color="#219ebc" style={{ marginLeft: 12, marginRight: 8 }} />
+                    <Text style={styles.storyStat}>{story.comments}</Text>
+                  </TouchableOpacity>
+                  <MaterialCommunityIcons name="eye-outline" size={18} color="#457b9d" style={{ marginLeft: 12, marginRight: 8 }} />
+                  <Text style={styles.storyStat}>{story.views || 0}</Text>
+                  <View style={{ flex: 1 }} />
+                  <MaterialCommunityIcons name="share-variant" size={18} color="#bdbdbd" />
+                </View>
               </View>
-              <View style={{ flex: 1 }} />
-              <Text style={styles.storyTime}>{story.time}</Text>
-            </View>
-            <View style={styles.storyTagsRow}>
-              {story.tags.map((tag, idx) => (
-                <Text key={idx} style={styles.storyTag}>{tag}</Text>
-              ))}
-            </View>
-            <View style={styles.storyStatsRow}>
-              <MaterialCommunityIcons name="heart-outline" size={18} color="#fb8500" style={{ marginRight: 8 }} />
-              <Text style={styles.storyStat}>{story.likes}</Text>
-              <MaterialCommunityIcons name="comment-outline" size={18} color="#219ebc" style={{ marginLeft: 12, marginRight: 8 }} />
-              <Text style={styles.storyStat}>{story.comments}</Text>
-              <MaterialCommunityIcons name="eye-outline" size={18} color="#457b9d" style={{ marginLeft: 12, marginRight: 8 }} />
-              <Text style={styles.storyStat}>{story.views}</Text>
-              <View style={{ flex: 1 }} />
-              <MaterialCommunityIcons name="share-variant" size={18} color="#bdbdbd" />
-            </View>
-          </View>
-        ))}
+            ))
+        )}
         <TouchableOpacity style={styles.loadMoreButton}>
           <Text style={styles.loadMoreText}>Cargar más relatos</Text>
         </TouchableOpacity>
       </ScrollView>
+<Modal visible={modalVisible} animationType="slide" onRequestClose={() => setModalVisible(false)}>
+  <View style={{ flex: 1, backgroundColor: '#fff', paddingTop: 32 }}>
+    <Text style={{ fontWeight: 'bold', fontSize: 22, marginLeft: 18, marginBottom: 12 }}>
+      Comentarios
+    </Text>
+    <ScrollView style={{ flex: 1, paddingHorizontal: 18 }}>
+      {loadingComments ? (
+        <Text>Cargando comentarios...</Text>
+      ) : storyComments.length > 0 ? (
+        storyComments.map(comment => (
+          <View key={comment.id} style={{ marginBottom: 8 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 16 }}>{comment.user?.username || 'Anónimo'}:</Text>
+            <Text style={{ fontSize: 16 }}>{comment.content}</Text>
+            <Text style={{ fontSize: 12, color: '#888', marginTop: 2 }}>{comment.created_at}</Text>
+          </View>
+        ))
+      ) : (
+        <Text style={{ fontSize: 16, color: '#444' }}>No hay comentarios.</Text>
+      )}
+    </ScrollView>
+    <View style={{ flexDirection: 'row', alignItems: 'center', padding: 18 }}>
+      <TextInput
+        value={newComment}
+        onChangeText={setNewComment}
+        placeholder="Escribe un comentario..."
+        style={{
+          flex: 1,
+          borderWidth: 1,
+          borderColor: '#ccc',
+          borderRadius: 8,
+          padding: 8,
+          fontSize: 16,
+          marginRight: 8,
+        }}
+      />
+      <TouchableOpacity
+        onPress={handleSendComment}
+        style={{
+          backgroundColor: '#219ebc',
+          borderRadius: 8,
+          paddingVertical: 8,
+          paddingHorizontal: 16,
+        }}
+        disabled={sendingComment || !newComment.trim()}
+      >
+        <Text style={{ color: '#fff', fontWeight: 'bold', fontSize: 16 }}>
+          {sendingComment ? 'Enviando...' : 'Enviar'}
+        </Text>
+      </TouchableOpacity>
+    </View>
+    <TouchableOpacity onPress={() => setModalVisible(false)} style={{ marginBottom: 18 }}>
+      <Text style={{ color: '#219ebc', textAlign: 'center', fontWeight: 'bold', fontSize: 16 }}>Cerrar</Text>
+    </TouchableOpacity>
+  </View>
+</Modal>
     </View>
   );
 }
