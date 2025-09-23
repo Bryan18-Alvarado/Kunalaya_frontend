@@ -41,3 +41,15 @@ app-example
 # generated native folders
 /ios
 /android
+
+# VSCode
+.vscode/
+
+# Logs
+*.log
+
+# Expo cache
+.expo-shared/
+
+Thumbs.db
+ehthumbs.db
