@@ -40,7 +40,7 @@ export default function RegisterScreen({ onLogin }) {
     <View style={styles.container}>
       {/* <ScrollView contentContainerStyle={{ alignItems: 'center', paddingVertical: 24 }} showsVerticalScrollIndicator={false}> */}
         <View style={styles.card}>
-        <Image source={require('../assets/images/icon.png')} style={styles.logo} />
+  <Image source={require('../assets/images/kunalaya-logo.png')} style={styles.logoHeader} />
         <Text style={styles.title}>Crear Cuenta</Text>
         <Text style={styles.subtitle}>Únete a la comunidad Kunalaya</Text>
 
@@ -196,13 +196,12 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     elevation: 2,
   },
-  logo: {
-    width: 60,
-    height: 60,
-    marginBottom: 12,
-    borderRadius: 30,
-    backgroundColor: '#fff',
+  logoHeader: {
+    width: 220,
+    height: 50,
+    marginBottom: 24,
     resizeMode: 'contain',
+    alignSelf: 'center',
   },
   title: {
     fontSize: 19,

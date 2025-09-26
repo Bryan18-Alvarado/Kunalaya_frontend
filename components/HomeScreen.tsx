@@ -1,6 +1,6 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 
 export default function HomeScreen() {
   return (
@@ -8,15 +8,13 @@ export default function HomeScreen() {
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <View style={styles.headerRow}>
-            <View style={styles.logoCircle}>
-              <MaterialCommunityIcons name="alpha-k-circle" size={32} color="#fb8500" />
-            </View>
-            <Text style={styles.headerTitle}>Kunalaya</Text>
+            <Image source={require('../assets/images/kunalaya-logo.png')} style={{ width: 100, height: 36, resizeMode: 'contain' }} />
             <View style={{ flex: 1 }} />
             <MaterialCommunityIcons name="account-outline" size={24} color="#22223b" style={{ marginRight: 8 }} />
             <MaterialCommunityIcons name="menu" size={24} color="#22223b" />
           </View>
         </View>
+
         <Text style={styles.title}>¡Bienvenido a Kunalaya!</Text>
         <Text style={styles.subtitle}>Descubre, comparte y preserva las tradiciones y saberes populares de Nicaragua</Text>
         <View style={styles.statsRow}>
@@ -161,7 +159,7 @@ const styles = StyleSheet.create({
   header: {
     paddingTop: 36,
     paddingBottom: 8,
-    paddingHorizontal: 16,
+    paddingHorizontal: 4,
     backgroundColor: '#8ecae6',
     width: '100%',
   },

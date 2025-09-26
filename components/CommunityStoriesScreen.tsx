@@ -1,5 +1,7 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useState, useEffect } from 'react';
+import { Image } from 'react-native';
+import { Video } from 'expo-av';
 import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Modal } from 'react-native';
 
 const API_URL = "http://192.168.1.13:8000/relatos/api/v1/relatos/";
@@ -140,15 +142,18 @@ export default function CommunityStoriesScreen() {
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerRow}>
-          <View style={styles.logoCircle}>
-            <MaterialCommunityIcons name="alpha-k-circle" size={32} color="#fb8500" />
-          </View>
-          <Text style={styles.headerTitle}>Kunalaya</Text>
-          <View style={{ flex: 1 }} />
-          <MaterialCommunityIcons name="account-outline" size={24} color="#22223b" style={{ marginRight: 8 }} />
-          <MaterialCommunityIcons name="menu" size={24} color="#22223b" />
+          
         </View>
       </View>
+        {/* Header estático igual a EventosScreen */}
+        <View style={styles.header}>
+          <View style={styles.headerRow}>
+            <Image source={require('../assets/images/kunalaya-logo.png')} style={{ width: 100, height: 36, resizeMode: 'contain' }} />
+            <View style={{ flex: 1 }} />
+            <MaterialCommunityIcons name="account-outline" size={24} color="#22223b" style={{ marginRight: 8 }} />
+            <MaterialCommunityIcons name="menu" size={24} color="#22223b" />
+          </View>
+        </View>
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
         <Text style={styles.title}>Relatos Comunitarios</Text>
         <Text style={styles.subtitle}>Descubre y comparte las historias que definen nuestra identidad</Text>
@@ -216,13 +221,37 @@ export default function CommunityStoriesScreen() {
                   <View style={{ flex: 1 }} />
                   <Text style={styles.storyTime}>{story.publication_date || story.time || ''}</Text>
                 </View>
-                {story.tags && (
-                  <View style={styles.storyTagsRow}>
-                    {story.tags.map((tag, idx) => (
-                      <Text key={idx} style={styles.storyTag}>{tag}</Text>
-                    ))}
+                {/* Multimedia render */}
+                {story.media && story.media.length > 0 && (
+                  <View style={{ marginBottom: 10 }}>
+                    {story.media.map((mediaItem, idx) => {
+                      const fileUrl = "http://192.168.1.13:8000" + mediaItem.files;
+                      if (mediaItem.types === 'image') {
+                        return (
+                          <Image
+                            key={idx}
+                            source={{ uri: fileUrl }}
+                            style={{ width: '100%', height: 200, borderRadius: 12, marginBottom: 8 }}
+                            resizeMode="cover"
+                          />
+                        );
+                      }
+                      if (mediaItem.types === 'video') {
+                        return (
+                          <Video
+                            key={idx}
+                            source={{ uri: fileUrl }}
+                            style={{ width: '100%', height: 220, borderRadius: 12, marginBottom: 8 }}
+                            useNativeControls
+                            resizeMode="contain"
+                          />
+                        );
+                      }
+                      return null;
+                    })}
                   </View>
                 )}
+                {/* Fin multimedia */}
                 <View style={styles.storyStatsRow}>
                   {/* Rating: estrellas y promedio */}
                   <View style={{ flexDirection: 'row', alignItems: 'center', marginRight: 8 }}>
@@ -323,7 +352,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#8ecae6',
   },
   header: {
-    paddingTop: Platform.OS === 'android' ? 36 : 44,
+    paddingTop: Platform.OS === 'android' ? 14 : 44,
     paddingBottom: 8,
     paddingHorizontal: 16,
     backgroundColor: '#8ecae6',

@@ -10,7 +10,7 @@ export default function LoginScreen({ onRegister, onForgotPassword, onLogin }) {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
-        <Image source={require('../assets/images/icon.png')} style={styles.logo} />
+  <Image source={require('../assets/images/kunalaya-logo.png')} style={styles.logoHeader} />
         <Text style={styles.title}>Iniciar Sesión</Text>
         <Text style={styles.subtitle}>Bienvenido de vuelta a Kunalaya</Text>
 
@@ -89,13 +89,13 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     elevation: 4,
   },
-  logo: {
-    width: 70,
-    height: 70,
-    marginBottom: 18,
-    borderRadius: 35,
-    backgroundColor: '#fff',
+  logoHeader: {
+    width: 220,
+    height: 80,
+    marginBottom: 24,
     resizeMode: 'contain',
+    alignSelf: 'center',
+    marginLeft: -18,
   },
   title: {
     fontSize: 24,

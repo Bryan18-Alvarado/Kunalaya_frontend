@@ -6,7 +6,7 @@ export default function WelcomeScreen({ onContinue }) {
   return (
     <View style={styles.container}>
       <View style={styles.centerContent}>
-        <Image source={require('../assets/images/icon.png')} style={styles.logo} />
+        <Image source={require('../assets/images/kunalaya-logo.png')} style={styles.logoHeader} />
         <Text style={styles.title}>Bienvenidos a Kunalaya</Text>
         <Text style={styles.subtitle}>
           Preservemos juntos nuestras tradiciones, saberes populares y el patrimonio cultural de Nicaragua
@@ -34,12 +34,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingTop: 48,
   },
-  logo: {
-    width: 90,
-    height: 90,
-    marginBottom: 24,
-    borderRadius: 45,
-    backgroundColor: '#fff',
+  logoHeader: {
+    width: 220,
+    height: 80,
+    marginBottom: 32,
     resizeMode: 'contain',
   },
   title: {

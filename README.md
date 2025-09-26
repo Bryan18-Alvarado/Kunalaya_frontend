@@ -1,50 +1,102 @@
-# Welcome to your Expo app 👋
+<div align="center">
+  <img src="./assets/images/kunalaya-logo.png" alt="Kunalaya Logo" width="320" />
+</div>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Kunalaya App
 
-## Get started
+> Aplicación móvil para preservar, compartir y descubrir tradiciones, relatos, saberes y eventos culturales de Nicaragua.
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## 📋 Tabla de Contenidos
 
-2. Start the app
+- [Descripción](#descripción)
+- [Características](#características)
+- [Tecnologías](#tecnologías)
+- [Instalación](#instalación)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Uso](#uso)
+- [Autores](#autores)
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 📝 Descripción
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Kunalaya App es una plataforma colaborativa donde los usuarios pueden compartir relatos, registrar lugares históricos, crear eventos y preservar saberes populares de Nicaragua.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🚀 Características
 
-## Get a fresh project
+- Registro e inicio de sesión de usuarios
+- Compartir relatos multimedia (texto, imagen, video, audio)
+- Mapa interactivo de lugares culturales
+- Calendario de eventos tradicionales
+- Biblioteca de saberes populares
+- Filtros y búsqueda avanzada
+- Interfaz moderna y responsiva
 
-When you're ready, run:
+## 🛠️ Tecnologías
+
+- **Frontend:** Expo React Native (TypeScript)
+- **Backend:** Django + Django REST Framework
+- **Base de datos:** SQLite (desarrollo), PostgreSQL (producción)
+- **Otros:** expo-av, expo-video, react-native-maps, MaterialCommunityIcons
+
+## ⚡ Instalación
+
+### 1. Clonar el repositorio
 
 ```bash
-npm run reset-project
+git clone https://github.com/Bryan18-Alvarado/Kunalaya_App.git
+cd Kunalaya_App/Kunalaya_frontend
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Instalar dependencias
 
-## Learn more
+```bash
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. Ejecutar la app
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npx expo start
+```
 
-## Join the community
+### 4. Backend (Django)
 
-Join our community of developers creating universal apps.
+```bash
+cd ../Kunalaya_backend
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🗂️ Estructura del Proyecto
+
+```text
+Kunalaya_App/
+├── Kunalaya_frontend/   # Expo React Native app
+│   ├── app/             # Vistas y navegación
+│   ├── components/      # Componentes reutilizables
+│   ├── assets/          # Imágenes y multimedia
+│   └── ...              # Configuración y scripts
+├── Kunalaya_backend/    # API Django REST
+│   ├── app_relatos/     # Relatos y multimedia
+│   ├── core/            # Usuarios y autenticación
+│   └── ...              # Configuración y migraciones
+```
+
+## 📱 Uso
+
+1. Inicia el backend Django (`python manage.py runserver`)
+2. Inicia la app Expo (`npx expo start`)
+3. Accede desde tu dispositivo móvil o emulador
+
+
+## 👥 Autores
+
+- Josué Espinoza
+- Hadyi Dávila
+- Bryan Alvarado
+- Nathalie Castillo
+- Cristian Monterrey
