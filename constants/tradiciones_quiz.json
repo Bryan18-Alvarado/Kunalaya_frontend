@@ -1,0 +1,63 @@
+[
+  {
+    "id": 1,
+    "title": "Tradiciones Nicaragüenses",
+    "questions": [
+      {
+        "question": "¿Cuál es la danza tradicional más representativa de Nicaragua?",
+        "options": [
+          "El Güegüense",
+          "La Purísima",
+          "El Palo de Mayo",
+          "La Gigantona"
+        ],
+        "answer": 0,
+        "explanation": "El Güegüense es considerado Patrimonio Cultural Inmaterial de la Humanidad por la UNESCO."
+      },
+      {
+        "question": "¿En qué fecha se celebra La Purísima en Nicaragua?",
+        "options": [
+          "7 de diciembre",
+          "8 de diciembre",
+          "24 de diciembre",
+          "25 de diciembre"
+        ],
+        "answer": 1,
+        "explanation": "La Purísima se celebra el 8 de diciembre en honor a la Inmaculada Concepción de María."
+      },
+      {
+        "question": "¿Qué tradición nicaragüense consiste en cantar y pedir dulces de casa en casa?",
+        "options": [
+          "El Tope de Toros",
+          "La Gritería",
+          "El Viejo y la Vieja",
+          "El Palo Lucio"
+        ],
+        "answer": 1,
+        "explanation": "La Gritería es una tradición donde se canta y se piden dulces en honor a la Virgen María."
+      },
+      {
+        "question": "¿Cuál es el instrumento musical típico en las fiestas patronales nicaragüenses?",
+        "options": [
+          "Marimba",
+          "Guitarra",
+          "Piano",
+          "Violín"
+        ],
+        "answer": 0,
+        "explanation": "La marimba es el instrumento más representativo en las fiestas tradicionales de Nicaragua."
+      },
+      {
+        "question": "¿Qué personaje tradicional baila con una máscara y un vestido colorido en las fiestas?",
+        "options": [
+          "El Toro Huaco",
+          "El Güegüense",
+          "La Gigantona",
+          "El Cadejo"
+        ],
+        "answer": 2,
+        "explanation": "La Gigantona es un personaje tradicional que baila con un vestido colorido y una máscara grande."
+      }
+    ]
+  }
+]

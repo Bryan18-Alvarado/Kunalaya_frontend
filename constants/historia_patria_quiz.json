@@ -1,0 +1,129 @@
+[
+  {
+    "id": 2,
+    "title": "Historia Patria",
+    "questions": [
+      {
+        "question": "¿Quién es considerado el máximo héroe nacional de Nicaragua?",
+        "options": [
+          "Rubén Darío",
+          "Augusto C. Sandino",
+          "José Dolores Estrada",
+          "Enrique Bolaños"
+        ],
+        "answer": 1,
+        "explanation": "Augusto C. Sandino es considerado el máximo héroe nacional por su lucha contra la intervención extranjera."
+      },
+      {
+        "question": "¿En qué año se firmó la independencia de Nicaragua de España?",
+        "options": [
+          "1811",
+          "1821",
+          "1838",
+          "1856"
+        ],
+        "answer": 1,
+        "explanation": "La independencia de Nicaragua de España se firmó en 1821 junto con otros países de Centroamérica."
+      },
+      {
+        "question": "¿Qué batalla es famosa por la frase 'Aquí no pasa nadie'?",
+        "options": [
+          "Batalla de San Jacinto",
+          "Batalla de Nandaime",
+          "Batalla de Masaya",
+          "Batalla de Granada"
+        ],
+        "answer": 0,
+        "explanation": "La Batalla de San Jacinto es famosa por la resistencia nicaragüense y la frase 'Aquí no pasa nadie'."
+      },
+      {
+        "question": "¿Quién fue el poeta conocido como el 'Príncipe de las Letras Castellanas'?",
+        "options": [
+          "Salomón de la Selva",
+          "Pablo Antonio Cuadra",
+          "Rubén Darío",
+          "Ernesto Cardenal"
+        ],
+        "answer": 2,
+        "explanation": "Rubén Darío es conocido como el 'Príncipe de las Letras Castellanas' y es un símbolo nacional."
+      },
+      {
+        "question": "¿Qué filibustero fue derrotado en la Batalla de San Jacinto?",
+        "options": [
+          "William Walker",
+          "Cornelio Vega",
+          "José Santos Zelaya",
+          "Tomás Martínez"
+        ],
+        "answer": 0,
+        "explanation": "William Walker, el filibustero estadounidense, fue derrotado en la Batalla de San Jacinto en 1856."
+      },
+      {
+        "question": "¿Cuál es el nombre del tratado que definió los límites entre Nicaragua y Costa Rica en 1858?",
+        "options": [
+          "Tratado Cañas-Jerez",
+          "Tratado Chamorro-Bryan",
+          "Tratado de Tordesillas",
+          "Tratado de Guadalupe Hidalgo"
+        ],
+        "answer": 0,
+        "explanation": "El Tratado Cañas-Jerez de 1858 definió los límites entre Nicaragua y Costa Rica."
+      },
+      {
+        "question": "¿Qué presidente nicaragüense abolió la esclavitud en el país?",
+        "options": [
+          "José Santos Zelaya",
+          "Tomás Martínez",
+          "Enrique Bolaños",
+          "Violeta Barrios de Chamorro"
+        ],
+        "answer": 0,
+        "explanation": "José Santos Zelaya abolió la esclavitud en Nicaragua en 1884."
+      },
+      {
+        "question": "¿En qué año se fundó la ciudad de León, una de las más antiguas de Nicaragua?",
+        "options": [
+          "1524",
+          "1600",
+          "1821",
+          "1856"
+        ],
+        "answer": 0,
+        "explanation": "La ciudad de León fue fundada en 1524 por Francisco Hernández de Córdoba."
+      },
+      {
+        "question": "¿Qué acontecimiento histórico se conmemora el 14 de septiembre en Nicaragua?",
+        "options": [
+          "La Batalla de San Jacinto",
+          "La Independencia de Centroamérica",
+          "La Revolución Sandinista",
+          "El nacimiento de Rubén Darío"
+        ],
+        "answer": 0,
+        "explanation": "El 14 de septiembre se conmemora la Batalla de San Jacinto, símbolo de la resistencia nacional."
+      },
+      {
+        "question": "¿Quién fue el primer presidente de Nicaragua después de la independencia?",
+        "options": [
+          "Fruto Chamorro",
+          "José María Moncada",
+          "Tomás Martínez",
+          "Enrique Bolaños"
+        ],
+        "answer": 0,
+        "explanation": "Fruto Chamorro fue el primer presidente de Nicaragua tras la independencia."
+      },
+      {
+        "question": "¿Qué ciudad fue la capital de Nicaragua antes de Managua?",
+        "options": [
+          "León",
+          "Granada",
+          "Masaya",
+          "Chinandega"
+        ],
+        "answer": 0,
+        "explanation": "León fue la capital de Nicaragua antes de que Managua fuera designada capital en 1852."
+      }
+    ]
+  }
+]

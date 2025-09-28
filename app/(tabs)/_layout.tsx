@@ -14,11 +14,15 @@ function CustomTabBar({ state, descriptors, navigation }) {
       label: 'Relatos',
       icon: 'book-open-variant',
     },
-    // Puedes agregar más tabs aquí
     {
       name: 'map',
       label: 'Mapa',
       icon: 'map-marker',
+    },
+    {
+      name: 'games',
+      label: 'Juegos',
+      icon: 'gamepad-variant',
     },
     {
       name: 'events',
@@ -100,8 +104,8 @@ export default function TabsLayout() {
     >
       <Tabs.Screen name="home" options={{ title: 'Inicio' }} />
       <Tabs.Screen name="community-stories" options={{ title: 'Relatos' }} />
-      {/* Si agregas más tabs, crea los archivos correspondientes en app/(tabs)/ */}
       <Tabs.Screen name="map" options={{ title: 'Mapa' }} />
+      <Tabs.Screen name="games" options={{ title: 'Juegos' }} />
       <Tabs.Screen name="events" options={{ title: 'Eventos' }} />
       <Tabs.Screen name="library" options={{ title: 'Biblioteca' }} />
     </Tabs>

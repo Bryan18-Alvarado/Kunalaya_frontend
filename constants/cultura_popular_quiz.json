@@ -1,0 +1,140 @@
+[
+  {
+    "id": 3,
+    "title": "Cultura Popular",
+    "questions": [
+      {
+        "question": "¿Cuál es el género musical más popular en las fiestas patronales de Nicaragua?",
+        "options": [
+          "Cumbia",
+          "Palo de Mayo",
+          "Reggaetón",
+          "Bolero"
+        ],
+        "answer": 1,
+        "explanation": "El Palo de Mayo es un género musical y baile tradicional muy popular en la Costa Caribe y en fiestas patronales."
+      },
+      {
+        "question": "¿Qué instrumento es fundamental en la música folclórica nicaragüense?",
+        "options": [
+          "Marimba",
+          "Saxofón",
+          "Batería",
+          "Teclado"
+        ],
+        "answer": 0,
+        "explanation": "La marimba es esencial en la música folclórica y tradicional de Nicaragua."
+      },
+      {
+        "question": "¿Qué personaje es famoso por su baile con una cabeza gigante en las calles de León?",
+        "options": [
+          "El Güegüense",
+          "La Gigantona",
+          "El Cadejo",
+          "El Toro Huaco"
+        ],
+        "answer": 1,
+        "explanation": "La Gigantona es un personaje tradicional que baila con una gran cabeza y vestido colorido."
+      },
+      {
+        "question": "¿Qué celebración popular incluye la quema de pólvora y desfiles de carrozas?",
+        "options": [
+          "La Gritería",
+          "El Tope de Toros",
+          "Las Fiestas de Santo Domingo",
+          "El Güegüense"
+        ],
+        "answer": 2,
+        "explanation": "Las Fiestas de Santo Domingo en Managua son famosas por sus desfiles y la quema de pólvora."
+      },
+      {
+        "question": "¿Qué expresión artística es reconocida por sus coloridos tapices y hamacas en Masaya?",
+        "options": [
+          "Cerámica negra",
+          "Bordado de Granada",
+          "Artesanía de Masaya",
+          "Pintura primitivista"
+        ],
+        "answer": 2,
+        "explanation": "La artesanía de Masaya es famosa por sus tapices, hamacas y productos hechos a mano."
+      },
+      {
+        "question": "¿Qué festividad se celebra el 7 de diciembre con cantos y dulces?",
+        "options": [
+          "La Purísima",
+          "El Tope de Toros",
+          "El Palo de Mayo",
+          "La Gritería"
+        ],
+        "answer": 3,
+        "explanation": "La Gritería se celebra el 7 de diciembre con cantos y dulces en honor a la Virgen María."
+      },
+      {
+        "question": "¿Qué pintor nicaragüense es famoso por su arte primitivista?",
+        "options": [
+          "Armando Morales",
+          "Alejandro Aróstegui",
+          "Asilia Guillén",
+          "Ernesto Cardenal"
+        ],
+        "answer": 2,
+        "explanation": "Asilia Guillén es reconocida por su arte primitivista y colorido."
+      },
+      {
+        "question": "¿Qué baile tradicional se representa con máscaras y trajes coloridos en Diriamba?",
+        "options": [
+          "El Güegüense",
+          "El Viejo y la Vieja",
+          "El Toro Huaco",
+          "La Gigantona"
+        ],
+        "answer": 2,
+        "explanation": "El Toro Huaco es un baile tradicional de Diriamba con máscaras y trajes coloridos."
+      },
+      {
+        "question": "¿Qué bebida es típica en las celebraciones populares nicaragüenses?",
+        "options": [
+          "Pinolillo",
+          "Café",
+          "Chicha",
+          "Cerveza"
+        ],
+        "answer": 0,
+        "explanation": "El pinolillo es una bebida tradicional hecha de maíz y cacao, símbolo de la cultura popular."
+      },
+      {
+        "question": "¿Qué poeta nicaragüense es conocido por su influencia en la cultura popular?",
+        "options": [
+          "Rubén Darío",
+          "Ernesto Cardenal",
+          "Pablo Antonio Cuadra",
+          "Salomón de la Selva"
+        ],
+        "answer": 1,
+        "explanation": "Ernesto Cardenal es conocido por su poesía y su influencia en la cultura popular y política."
+      },
+      {
+        "question": "¿Qué celebración es famosa por los bailes de El Viejo y la Vieja?",
+        "options": [
+          "Fiestas de San Sebastián",
+          "Fiestas de San Jerónimo",
+          "Fiestas de Santo Domingo",
+          "Fiestas de San Marcos"
+        ],
+        "answer": 1,
+        "explanation": "Las Fiestas de San Jerónimo en Masaya son famosas por el baile de 'El Viejo y la Vieja'."
+      },
+      {
+        "question": "¿Qué ciudad es reconocida como la capital del folclore nicaragüense?",
+        "options": [
+          "León",
+          "Granada",
+          "Masaya",
+          "Managua"
+        ],
+        "answer": 2,
+        "explanation": "Masaya es conocida como la capital del folclore nicaragüense por su riqueza cultural."
+      }
+    ]
+  }
+]

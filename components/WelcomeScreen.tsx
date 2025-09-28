@@ -1,8 +1,16 @@
 
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Image, StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { useRouter } from 'expo-router';
 
-export default function WelcomeScreen({ onContinue }) {
+export default function WelcomeScreen() {
+  const router = useRouter();
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      router.replace('/login');
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, [router]);
   return (
     <View style={styles.container}>
       <View style={styles.centerContent}>
@@ -11,9 +19,7 @@ export default function WelcomeScreen({ onContinue }) {
         <Text style={styles.subtitle}>
           Preservemos juntos nuestras tradiciones, saberes populares y el patrimonio cultural de Nicaragua
         </Text>
-        <TouchableOpacity style={styles.button} onPress={onContinue}>
-          <Text style={styles.buttonText}>Continuar</Text>
-        </TouchableOpacity>
+        <ActivityIndicator size="large" color="#219ebc" style={{ marginTop: 10, marginBottom: 10 }} />
       </View>
       <Text style={styles.footer}>Hackathon Nicaragua 2025 • Preservando nuestras raíces</Text>
     </View>
