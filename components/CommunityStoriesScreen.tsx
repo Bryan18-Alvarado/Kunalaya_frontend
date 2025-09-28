@@ -5,6 +5,7 @@ import { Video } from 'expo-av';
 import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Modal } from 'react-native';
 
 const API_URL = "http://192.168.1.13:8000/relatos/api/v1/relatos/";
+// Reemplaza con la URL real de tu API
 
 type Story = {
   id: number | string;
@@ -83,6 +84,7 @@ export default function CommunityStoriesScreen() {
     setModalVisible(true);
     setLoadingComments(true);
     fetch(`http://192.168.1.13:8000/api/v1/comentarios/?post_id=${story.id}`)
+    // Reemplaza con la URL real de tu API
       .then(res => res.json())
       .then(data => {
         setStoryComments(data);
@@ -100,6 +102,7 @@ export default function CommunityStoriesScreen() {
     if (!selectedStory) return;
     setSendingComment(true);
     fetch('http://192.168.1.13:8000/api/v1/comentarios/', {
+      // Reemplaza con la URL real de tu API
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -226,6 +229,7 @@ export default function CommunityStoriesScreen() {
                   <View style={{ marginBottom: 10 }}>
                     {story.media.map((mediaItem, idx) => {
                       const fileUrl = "http://192.168.1.13:8000" + mediaItem.files;
+                      // Reemplaza con la URL real de tu API
                       if (mediaItem.types === 'image') {
                         return (
                           <Image

@@ -29,6 +29,7 @@ Kunalaya App es una plataforma colaborativa donde los usuarios pueden compartir 
 - Registro e inicio de sesión de usuarios
 - Compartir relatos multimedia (texto, imagen, video, audio)
 - Mapa interactivo de lugares culturales
+- Juegos de aprendizaje y cultura nacionacional
 - Calendario de eventos tradicionales
 - Biblioteca de saberes populares
 - Filtros y búsqueda avanzada
@@ -68,7 +69,7 @@ npx expo start
 cd ../Kunalaya_backend
 pip install -r requirements.txt
 python manage.py migrate
-python manage.py runserver
+python manage.py runserver 0.0.0.0:8000
 ```
 
 ## 🗂️ Estructura del Proyecto
