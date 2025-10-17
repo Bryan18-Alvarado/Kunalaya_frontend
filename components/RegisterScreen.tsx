@@ -157,7 +157,45 @@ export default function RegisterScreen({ onLogin }) {
           </Text>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={onLogin}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={async () => {
+            // Prepare payload matching backend expectations: username should be the email
+            const payload = {
+              username: email.trim(),
+              first_name: nombre.trim(),
+              last_name: apellido.trim(),
+              email: email.trim(),
+              password: password,
+            };
+
+            try {
+              const res = await fetch('http://10.247.108.120:8000/register/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+              });
+
+              if (!res.ok) {
+                const txt = await res.text();
+                throw new Error(txt || 'Error en registro');
+              }
+
+              const data = await res.json();
+              const token = data.token || data.key || data.auth_token;
+              if (!token) throw new Error('No se recibió token tras registrar');
+
+              // Store token and navigate to home
+              const AsyncStorage = require('@react-native-async-storage/async-storage').default;
+              await AsyncStorage.setItem('authToken', token);
+              if (onLogin && typeof onLogin === 'function') {
+                onLogin();
+              }
+            } catch (err: any) {
+              alert(err.message || 'No se pudo crear la cuenta');
+            }
+          }}
+        >
           <Text style={styles.buttonText}>Crear Cuenta</Text>
         </TouchableOpacity>
 

@@ -1,11 +1,15 @@
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert, ActivityIndicator } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
 
 export default function LoginScreen({ onRegister, onForgotPassword, onLogin }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   return (
     <View style={styles.container}>
@@ -49,8 +53,44 @@ export default function LoginScreen({ onRegister, onForgotPassword, onLogin }) {
           <Text style={styles.forgot}>¿Olvidaste tu contraseña?</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={onLogin}>
-          <Text style={styles.buttonText}>Iniciar Sesión</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={async () => {
+            setLoading(true);
+            try {
+              const res = await fetch('http://10.247.108.120:8000/login/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+              });
+              if (!res.ok) {
+                const txt = await res.text();
+                throw new Error(txt || 'Error en login');
+              }
+              const data = await res.json();
+              const token = data.token || data.key || data.auth_token;
+              if (!token) throw new Error('No se recibió token');
+              await AsyncStorage.setItem('authToken', token);
+              setLoading(false);
+              // Prefer calling the parent's onLogin handler if provided (it navigates to /home),
+              // otherwise navigate directly to the tabs home route.
+              try {
+                if (onLogin && typeof onLogin === 'function') {
+                  onLogin();
+                } else {
+                  router.replace('/(tabs)/home');
+                }
+              } catch (e) {
+                router.replace('/(tabs)/home');
+              }
+            } catch (err: any) {
+              setLoading(false);
+              Alert.alert('Error', err.message || 'No se pudo iniciar sesión');
+            }
+          }}
+          disabled={loading}
+        >
+          {loading ? <ActivityIndicator color="#fff" /> : <Text style={styles.buttonText}>Iniciar Sesión</Text>}
         </TouchableOpacity>
 
         <View style={styles.divider} />

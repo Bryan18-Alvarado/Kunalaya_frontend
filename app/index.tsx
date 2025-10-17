@@ -1,11 +1,7 @@
 import { Redirect } from 'expo-router';
 
-// Simula si el usuario está autenticado
-const isLoggedIn = false; // Cambia a true para probar
-
+// Default behavior: always start at the welcome/auth flow. If you want
+// automatic token-based login, we can add that later behind a feature flag.
 export default function Index() {
-  if (isLoggedIn) {
-    return <Redirect href="/(tabs)/home" />;
-  }
   return <Redirect href="/(auth)/welcome" />;
 }

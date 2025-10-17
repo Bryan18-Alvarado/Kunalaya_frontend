@@ -7,7 +7,7 @@ export default function Login() {
     <LoginScreen
       onRegister={() => router.push('/register')}
       onForgotPassword={() => {}}
-      onLogin={() => router.push('/home')}
+      onLogin={() => router.push('/(tabs)/home')}
     />
   );
 }

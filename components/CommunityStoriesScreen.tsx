@@ -4,7 +4,7 @@ import { Image } from 'react-native';
 import { Video } from 'expo-av';
 import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View, Modal } from 'react-native';
 
-const API_URL = "http://192.168.1.13:8000/relatos/api/v1/relatos/";
+const API_URL = "http://10.247.108.120:8000/relatos/api/v1/relatos/";
 // Reemplaza con la URL real de tu API
 
 type Story = {
@@ -23,6 +23,8 @@ type Story = {
   comments?: number;
   views?: number;
   rating?: number | null;
+  multimedia?: Array<{ file_url?: string; file_type?: string; files?: string; types?: string }>;
+  media?: Array<{ files?: string; types?: string; file_url?: string; file_type?: string }>;
 };
 
 type Comment = {
@@ -225,12 +227,15 @@ export default function CommunityStoriesScreen() {
                   <Text style={styles.storyTime}>{story.publication_date || story.time || ''}</Text>
                 </View>
                 {/* Multimedia render */}
-                {story.media && story.media.length > 0 && (
+                {(story.multimedia && story.multimedia.length > 0) || (story.media && story.media.length > 0) ? (
                   <View style={{ marginBottom: 10 }}>
-                    {story.media.map((mediaItem, idx) => {
-                      const fileUrl = "http://192.168.1.13:8000" + mediaItem.files;
-                      // Reemplaza con la URL real de tu API
-                      if (mediaItem.types === 'image') {
+                    {(story.multimedia || story.media).map((mediaItem, idx) => {
+                      const API_BASE = API_URL.replace(/\/relatos\/api\/v1\/relatos\/?$/, '');
+                      const fileUrl = mediaItem.file_url || (mediaItem.files ? `${API_BASE}${mediaItem.files}` : undefined);
+                      const mtype = mediaItem.file_type || mediaItem.types || 'image';
+                      if (!fileUrl) return null;
+
+                      if (mtype === 'image') {
                         return (
                           <Image
                             key={idx}
@@ -240,7 +245,7 @@ export default function CommunityStoriesScreen() {
                           />
                         );
                       }
-                      if (mediaItem.types === 'video') {
+                      if (mtype === 'video') {
                         return (
                           <Video
                             key={idx}
@@ -254,7 +259,7 @@ export default function CommunityStoriesScreen() {
                       return null;
                     })}
                   </View>
-                )}
+                ) : null}
                 {/* Fin multimedia */}
                 <View style={styles.storyStatsRow}>
                   {/* Rating: estrellas y promedio */}
